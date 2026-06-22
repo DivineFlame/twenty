@@ -4,14 +4,14 @@ services:
   server:
     image: twentycrm/twenty:${TAG:-latest}
     restart: unless-stopped
-    expose:
-      - "3000"
+    ports:
+      - "${TWENTY_HTTP_PORT:-3011}:3000"
     volumes:
       - twenty-server-local-data:/app/packages/twenty-server/.local-storage
     environment:
       NODE_PORT: 3000
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/${PG_DATABASE_NAME:-default}
-      SERVER_URL: ${SERVER_URL:-http://38.247.188.228}
+      SERVER_URL: ${SERVER_URL:-http://38.247.188.228:3011}
       REDIS_URL: redis://redis:6379
       DISABLE_DB_MIGRATIONS: ${DISABLE_DB_MIGRATIONS:-false}
       DISABLE_CRON_JOBS_REGISTRATION: ${DISABLE_CRON_JOBS_REGISTRATION:-false}
@@ -43,7 +43,7 @@ services:
       - twenty-server-local-data:/app/packages/twenty-server/.local-storage
     environment:
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/${PG_DATABASE_NAME:-default}
-      SERVER_URL: ${SERVER_URL:-http://38.247.188.228}
+      SERVER_URL: ${SERVER_URL:-http://38.247.188.228:3011}
       REDIS_URL: redis://redis:6379
       DISABLE_DB_MIGRATIONS: "true"
       DISABLE_CRON_JOBS_REGISTRATION: "true"

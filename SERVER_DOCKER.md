@@ -30,7 +30,7 @@ In Dokploy:
 - Add a domain for service `server`
 - Set the container port to `3000`
 
-The Compose file uses `expose: 3000` instead of host port binding, so it will not conflict with Dokploy running on host port `3000`.
+The Compose file binds host port `3011` to Twenty's internal container port `3000`, so it will not conflict with Dokploy running on host port `3000`.
 
 For a manual local check, start the stack:
 
@@ -55,16 +55,16 @@ docker compose up -d
 
 ## Public Access
 
-This root Compose file is intended to run behind Dokploy's reverse proxy. Set:
+This root Compose file also exposes Twenty directly on host port `3011`. For direct IP access, set:
+
+```ini
+SERVER_URL=http://38.247.188.228:3011
+```
+
+If you route through a Dokploy domain with HTTPS, set:
 
 ```ini
 SERVER_URL=https://crm.example.com
-```
-
-If you are not using Dokploy and need direct host-port access, use `docker-compose.server.yml` instead and set:
-
-```ini
-SERVER_URL=http://your-server-ip:3000
 ```
 
 Keep the same `ENCRYPTION_KEY` for the lifetime of the instance. Losing it means losing access to encrypted secrets stored in the database.
