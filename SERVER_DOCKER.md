@@ -13,11 +13,11 @@ This repo includes a root-level Docker Compose file for a simple self-hosted ser
 Copy the environment template and fill in the required values:
 
 ```bash
-cp .env.server.example .env.server
+cp .env.example .env
 openssl rand -base64 32
 ```
 
-Edit `.env.server`:
+Edit `.env`:
 
 - Set `SERVER_URL` to the URL people will use to open Twenty.
 - Set `PG_DATABASE_PASSWORD` to a strong value without special characters.
@@ -26,23 +26,23 @@ Edit `.env.server`:
 Start the stack:
 
 ```bash
-docker compose --env-file .env.server -f docker-compose.server.yml up -d
+docker compose up -d
 ```
 
 Check status:
 
 ```bash
-docker compose --env-file .env.server -f docker-compose.server.yml ps
+docker compose ps
 curl http://localhost:${TWENTY_HTTP_PORT:-3000}/healthz
 ```
 
 ## Updating
 
-Set `TAG` in `.env.server` to the Twenty image tag you want, then run:
+Set `TAG` in `.env` to the Twenty image tag you want, then run:
 
 ```bash
-docker compose --env-file .env.server -f docker-compose.server.yml pull
-docker compose --env-file .env.server -f docker-compose.server.yml up -d
+docker compose pull
+docker compose up -d
 ```
 
 ## Public Access
