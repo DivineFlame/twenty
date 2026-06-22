@@ -22,6 +22,8 @@ Edit `.env`:
 - Set `PG_DATABASE_PASSWORD` to a strong value without special characters.
 - Set `ENCRYPTION_KEY` to the generated secret.
 
+If you configure this from Dokploy's UI instead of committing a `.env`, add these same values in the service Environment Variables tab. The compose file includes fallback values only so Dokploy can parse and create the stack; production deployments should override them.
+
 In Dokploy:
 
 - Use Compose Path: `./docker-compose.yml`

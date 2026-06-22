@@ -10,8 +10,8 @@ services:
       - twenty-server-local-data:/app/packages/twenty-server/.local-storage
     environment:
       NODE_PORT: 3000
-      PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:?Set PG_DATABASE_PASSWORD in .env}@db:5432/${PG_DATABASE_NAME:-default}
-      SERVER_URL: ${SERVER_URL:?Set SERVER_URL in .env}
+      PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/${PG_DATABASE_NAME:-default}
+      SERVER_URL: ${SERVER_URL:-http://38.247.188.228}
       REDIS_URL: redis://redis:6379
       DISABLE_DB_MIGRATIONS: ${DISABLE_DB_MIGRATIONS:-false}
       DISABLE_CRON_JOBS_REGISTRATION: ${DISABLE_CRON_JOBS_REGISTRATION:-false}
@@ -21,7 +21,7 @@ services:
       STORAGE_S3_ENDPOINT: ${STORAGE_S3_ENDPOINT:-}
       STORAGE_S3_ACCESS_KEY_ID: ${STORAGE_S3_ACCESS_KEY_ID:-}
       STORAGE_S3_SECRET_ACCESS_KEY: ${STORAGE_S3_SECRET_ACCESS_KEY:-}
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?Set ENCRYPTION_KEY in .env}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-replace-with-a-random-base64-secret-before-production}
       FALLBACK_ENCRYPTION_KEY: ${FALLBACK_ENCRYPTION_KEY:-}
       APP_SECRET: ${APP_SECRET:-}
     depends_on:
@@ -42,8 +42,8 @@ services:
     volumes:
       - twenty-server-local-data:/app/packages/twenty-server/.local-storage
     environment:
-      PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:?Set PG_DATABASE_PASSWORD in .env}@db:5432/${PG_DATABASE_NAME:-default}
-      SERVER_URL: ${SERVER_URL:?Set SERVER_URL in .env}
+      PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/${PG_DATABASE_NAME:-default}
+      SERVER_URL: ${SERVER_URL:-http://38.247.188.228}
       REDIS_URL: redis://redis:6379
       DISABLE_DB_MIGRATIONS: "true"
       DISABLE_CRON_JOBS_REGISTRATION: "true"
@@ -53,7 +53,7 @@ services:
       STORAGE_S3_ENDPOINT: ${STORAGE_S3_ENDPOINT:-}
       STORAGE_S3_ACCESS_KEY_ID: ${STORAGE_S3_ACCESS_KEY_ID:-}
       STORAGE_S3_SECRET_ACCESS_KEY: ${STORAGE_S3_SECRET_ACCESS_KEY:-}
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY:?Set ENCRYPTION_KEY in .env}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-replace-with-a-random-base64-secret-before-production}
       FALLBACK_ENCRYPTION_KEY: ${FALLBACK_ENCRYPTION_KEY:-}
       APP_SECRET: ${APP_SECRET:-}
     depends_on:
@@ -72,7 +72,7 @@ services:
     environment:
       POSTGRES_DB: ${PG_DATABASE_NAME:-default}
       POSTGRES_USER: ${PG_DATABASE_USER:-postgres}
-      POSTGRES_PASSWORD: ${PG_DATABASE_PASSWORD:?Set PG_DATABASE_PASSWORD in .env}
+      POSTGRES_PASSWORD: ${PG_DATABASE_PASSWORD:-postgres}
     healthcheck:
       test:
         [
